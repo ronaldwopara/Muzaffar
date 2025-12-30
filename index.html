@@ -297,6 +297,13 @@
         .footer-text-shadow {
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
         }
+        /* Pulse Animation for Mobile Arrows */
+        @keyframes fadePulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .animate-pulse-arrow { animation: fadePulse 2s infinite ease-in-out; }
+        .scroll-hints-container { pointer-events: none; transition: opacity 0.5s ease-out; }
     </style>
 </head>
 <body class="bg-white text-gold">
@@ -595,221 +602,89 @@
 
         <!-- MOBILE/TABLET INFINITE CAROUSEL (Visible below lg) -->
         <!-- Changed from md:hidden to lg:hidden so it shows on tablets too -->
-        <div class="lg:hidden w-full overflow-hidden mt-8 pb-12 relative">
-            <div class="absolute left-0 top-0 bottom-0 w-12 z-50 bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
-            <div class="absolute right-0 top-0 bottom-0 w-12 z-50 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+        <!-- MOBILE SERVICES SECTION (SCROLLABLE WITH PULSING CUES) -->
+        <div class="lg:hidden w-full overflow-hidden mt-8 pb-12 relative" id="mobile-services-section">
+            
+            <!-- Pulsing Arrow Cues -->
+            <div id="scroll-hints" class="scroll-hints-container absolute inset-0 z-50 flex justify-between items-center px-4 pointer-events-none opacity-0">
+                <div class="w-10 h-10 bg-gold/90 rounded-full flex items-center justify-center text-white shadow-lg animate-pulse-arrow">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </div>
+                <div class="w-10 h-10 bg-gold/90 rounded-full flex items-center justify-center text-white shadow-lg animate-pulse-arrow">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
 
-            <div class="flex gap-4 animate-scroll w-max px-4">
-                
-                <!-- SET 1 -->
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
+            <!-- Manual Scroll Container -->
+            <div class="flex gap-4 overflow-x-auto px-6 py-4 no-scrollbar snap-x snap-mandatory" id="mobile-scroll-container">
+                <!-- Card 1 -->
+                <div class="glass-card min-w-[280px] w-[85vw] max-w-[320px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0 snap-center">
                     <div>
                         <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold shadow-sm">
-                                <i class="fa-solid fa-chart-line text-lg"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold shadow-sm"><i class="fa-solid fa-chart-line text-lg"></i></div>
                             <span class="text-base font-bold text-gray-900">Wealth Management</span>
                         </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Grow, protect, and preserve your wealth with personalized investment and portfolio strategies. Our wealth management services help business owners and families plan for retirement.
-                        </p>
+                        <p class="text-sm text-gray-700 leading-relaxed">Grow, protect, and preserve your wealth with personalized investment strategies.</p>
                     </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="wealth-management.html#wealth" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2 mt-4">Learn more <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
+                <!-- Card 2 -->
+                <div class="glass-card min-w-[280px] w-[85vw] max-w-[320px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0 snap-center">
                     <div>
                         <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shadow-sm">
-                                <i class="fa-solid fa-shield-halved text-lg"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shadow-sm"><i class="fa-solid fa-shield-halved text-lg"></i></div>
                             <span class="text-base font-bold text-gray-900">Insurance Planning</span>
                         </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Protect your income, assets, and loved ones with customized insurance planning. We provide tailored life, disability, critical illness, and business insurance strategies.
-                        </p>
+                        <p class="text-sm text-gray-700 leading-relaxed">Protect your income and assets with customized life and business insurance strategies.</p>
                     </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="wealth-management.html#insurance" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2 mt-4">Learn more <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
+                <!-- Card 3 -->
+                <div class="glass-card min-w-[280px] w-[85vw] max-w-[320px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0 snap-center">
                     <div>
                         <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 shadow-sm">
-                                <i class="fa-solid fa-house-chimney text-lg"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 shadow-sm"><i class="fa-solid fa-house-chimney text-lg"></i></div>
                             <span class="text-base font-bold text-gray-900">Mortgages</span>
                         </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Secure the right mortgage with expert guidance designed to match your financial goals. We help you compare rates, structure payments, and improve approval odds.
-                        </p>
+                        <p class="text-sm text-gray-700 leading-relaxed">Secure the right mortgage with expert guidance on rates and approval odds.</p>
                     </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="wealth-management.html#mortgages" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2 mt-4">Learn more <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
+                <!-- Card 4 -->
+                <div class="glass-card min-w-[280px] w-[85vw] max-w-[320px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0 snap-center">
                     <div>
                         <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 shadow-sm">
-                                <i class="fa-solid fa-briefcase text-lg"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 shadow-sm"><i class="fa-solid fa-briefcase text-lg"></i></div>
                             <span class="text-base font-bold text-gray-900">Financial Consultancy</span>
                         </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Get expert financial consultancy tailored to your unique goals. We provide strategic guidance on wealth building, cash flow optimization, and business finances.
-                        </p>
+                        <p class="text-sm text-gray-700 leading-relaxed">Strategic guidance on wealth building, cash flow, and business finances.</p>
                     </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="wealth-management.html#consultancy" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2 mt-4">Learn more <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
+                <!-- Card 5 -->
+                <div class="glass-card min-w-[280px] w-[85vw] max-w-[320px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0 snap-center">
                     <div>
                         <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shadow-sm">
-                                <i class="fa-solid fa-piggy-bank text-lg"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shadow-sm"><i class="fa-solid fa-piggy-bank text-lg"></i></div>
                             <span class="text-base font-bold text-gray-900">Financial Planning</span>
                         </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Take control of your financial future with comprehensive financial planning. We help you organize your assets, reduce taxes, and prepare for retirement.
-                        </p>
+                        <p class="text-sm text-gray-700 leading-relaxed">Comprehensive planning for retirement, tax reduction, and long-term security.</p>
                     </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="wealth-management.html#planning" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2 mt-4">Learn more <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
+                <!-- Card 6 -->
+                <div class="glass-card min-w-[280px] w-[85vw] max-w-[320px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0 snap-center">
                     <div>
                         <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 shadow-sm">
-                                <i class="fa-solid fa-hand-holding-dollar text-lg"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 shadow-sm"><i class="fa-solid fa-hand-holding-dollar text-lg"></i></div>
                             <span class="text-base font-bold text-gray-900">Debt Management</span>
                         </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Regain control of your finances with strategic debt management solutions. We help you reduce high-interest debt, improve cash flow, and restructure payments.
-                        </p>
+                        <p class="text-sm text-gray-700 leading-relaxed">Strategies to reduce high-interest debt and improve monthly cash flow.</p>
                     </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="wealth-management.html#debt" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2 mt-4">Learn more <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-
-                <!-- SET 2 (DUPLICATE) -->
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
-                    <div>
-                        <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold shadow-sm">
-                                <i class="fa-solid fa-chart-line text-lg"></i>
-                            </div>
-                            <span class="text-base font-bold text-gray-900">Wealth Management</span>
-                        </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Grow, protect, and preserve your wealth with personalized investment and portfolio strategies. Our wealth management services help business owners and families plan for retirement.
-                        </p>
-                    </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
-                    <div>
-                        <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shadow-sm">
-                                <i class="fa-solid fa-shield-halved text-lg"></i>
-                            </div>
-                            <span class="text-base font-bold text-gray-900">Insurance Planning</span>
-                        </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Protect your income, assets, and loved ones with customized insurance planning. We provide tailored life, disability, critical illness, and business insurance strategies.
-                        </p>
-                    </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
-                    <div>
-                        <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 shadow-sm">
-                                <i class="fa-solid fa-house-chimney text-lg"></i>
-                            </div>
-                            <span class="text-base font-bold text-gray-900">Mortgages</span>
-                        </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Secure the right mortgage with expert guidance designed to match your financial goals. We help you compare rates, structure payments, and improve approval odds.
-                        </p>
-                    </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
-                    <div>
-                        <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 shadow-sm">
-                                <i class="fa-solid fa-briefcase text-lg"></i>
-                            </div>
-                            <span class="text-base font-bold text-gray-900">Financial Consultancy</span>
-                        </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Get expert financial consultancy tailored to your unique goals. We provide strategic guidance on wealth building, cash flow optimization, and business finances.
-                        </p>
-                    </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
-                    <div>
-                        <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shadow-sm">
-                                <i class="fa-solid fa-piggy-bank text-lg"></i>
-                            </div>
-                            <span class="text-base font-bold text-gray-900">Financial Planning</span>
-                        </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Take control of your financial future with comprehensive financial planning. We help you organize your assets, reduce taxes, and prepare for retirement.
-                        </p>
-                    </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="glass-card w-[280px] h-[400px] rounded-2xl p-6 flex flex-col justify-between border border-white/60 bg-gradient-to-br from-white/80 to-white/40 backdrop-blur-xl shadow-strong-pop shrink-0">
-                    <div>
-                        <div class="flex items-center gap-3 mb-4 border-b border-gray-200/50 pb-3">
-                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 shadow-sm">
-                                <i class="fa-solid fa-hand-holding-dollar text-lg"></i>
-                            </div>
-                            <span class="text-base font-bold text-gray-900">Debt Management</span>
-                        </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            Regain control of your finances with strategic debt management solutions. We help you reduce high-interest debt, improve cash flow, and restructure payments.
-                        </p>
-                    </div>
-                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
-                        Learn more <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-
             </div>
         </div>
-
     </main>
 
     <!-- Scroll Animation Section -->
@@ -1423,6 +1298,35 @@
             
             updateScrollAnimation();
         });
+        // ============================================
+// MOBILE SERVICES PULSE LOGIC
+// ============================================
+const mobileScrollContainer = document.getElementById('mobile-scroll-container');
+const scrollHints = document.getElementById('scroll-hints');
+let pulseShown = false;
+
+if (mobileScrollContainer && scrollHints) {
+    // 1. Show Pulse on Vertical Scroll into View
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !pulseShown) {
+                scrollHints.style.opacity = '1';
+                pulseShown = true;
+            }
+        });
+    }, { threshold: 0.5 }); // Trigger when 50% visible
+
+    observer.observe(mobileScrollContainer);
+
+    // 2. Hide Pulse on Horizontal Scroll
+    mobileScrollContainer.addEventListener('scroll', () => {
+        if (scrollHints.style.opacity !== '0') {
+            scrollHints.style.opacity = '0';
+            // Optional: remove after fade out to clean up DOM
+            setTimeout(() => scrollHints.remove(), 500); 
+        }
+    }, { passive: true, once: true }); // 'once: true' ensures it runs only the first time needed
+}
     </script>
 </body>
 </html>
