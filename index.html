@@ -84,16 +84,25 @@
         }
         
         /* Dropdown Styles */
+        .group {
+            display: inline-block;
+        }
         .dropdown-content {
             opacity: 0;
             visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.2s ease-in-out;
+            left: 50%;
+            top: calc(100% - 2px);
+            transform: translate(-50%, 10px);
+            transition: opacity 0.18s ease-in-out, transform 0.18s ease-in-out, visibility 0.18s;
+            z-index: 60;
+            pointer-events: none;
+            min-width: 10rem;
         }
         .group:hover .dropdown-content {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0);
+            transform: translate(-50%, 0);
+            pointer-events: auto;
         }
 
         /* Mobile Submenu Styles */
@@ -299,20 +308,20 @@
         </button>
         
         <div class="flex flex-col items-center gap-6 w-full pb-10">
-            <a href="#" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">Home</a>
-            <a href="#" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">About</a>
+            <a href="index.html" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">Home</a>
+            <a href="about.html" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">About</a>
             
             <div class="w-full flex flex-col items-center">
                 <button class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors flex items-center gap-2" onclick="toggleMobileSubmenu('mobile-resources')">
                     Resources <i class="fa-solid fa-chevron-down text-sm transition-transform" id="arrow-mobile-resources"></i>
                 </button>
                 <div id="mobile-resources" class="mobile-submenu flex flex-col items-center gap-3 mt-2 text-lg text-gray-600 bg-gray-50/50 w-full py-0">
-                    <a href="#" class="block py-2 hover:text-gold">Wealth Management</a>
-                    <a href="#" class="block py-2 hover:text-gold">Financial Planning</a>
-                    <a href="#" class="block py-2 hover:text-gold">Financial Consultancy</a>
-                    <a href="#" class="block py-2 hover:text-gold">Insurance Planning</a>
-                    <a href="#" class="block py-2 hover:text-gold">Debt Management</a>
-                    <a href="#" class="block py-2 hover:text-gold">Mortgages</a>
+                    <a href="wealth-management.html#wealth" class="block py-2 hover:text-gold">Wealth Management</a>
+                    <a href="wealth-management.html#planning" class="block py-2 hover:text-gold">Financial Planning</a>
+                    <a href="wealth-management.html#consultancy" class="block py-2 hover:text-gold">Financial Consultancy</a>
+                    <a href="wealth-management.html#insurance" class="block py-2 hover:text-gold">Insurance Planning</a>
+                    <a href="wealth-management.html#debt" class="block py-2 hover:text-gold">Debt Management</a>
+                    <a href="wealth-management.html#mortgages" class="block py-2 hover:text-gold">Mortgages</a>
                 </div>
             </div>
 
@@ -321,82 +330,83 @@
                     Locations <i class="fa-solid fa-chevron-down text-sm transition-transform" id="arrow-mobile-locations"></i>
                 </button>
                 <div id="mobile-locations" class="mobile-submenu flex flex-col items-center gap-3 mt-2 text-lg text-gray-600 bg-gray-50/50 w-full py-0">
-                    <a href="#" class="block py-2 hover:text-gold">Calgary</a>
-                    <a href="#" class="block py-2 hover:text-gold">Edmonton</a>
-                    <a href="#" class="block py-2 hover:text-gold">Ottawa</a>
-                    <a href="#" class="block py-2 hover:text-gold">Vancouver</a>
-                    <a href="#" class="block py-2 hover:text-gold">Toronto</a>
+                    <a href="locations.html#calgary" class="block py-2 hover:text-gold">Calgary</a>
+                    <a href="locations.html#edmonton" class="block py-2 hover:text-gold">Edmonton</a>
+                    <a href="locations.html#ottawa" class="block py-2 hover:text-gold">Ottawa</a>
+                    <a href="locations.html#vancouver" class="block py-2 hover:text-gold">Vancouver</a>
+                    <a href="locations.html#toronto" class="block py-2 hover:text-gold">Toronto</a>
                 </div>
             </div>
 
-            <a href="#" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">Blog</a>
-            <a href="#" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">FAQ</a>
-            <a href="#" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">Contact</a>
+            <a href="blog.html" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">Blog</a>
+            <a href="faq.html" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">FAQ</a>
+            <a href="contact.html" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">Contact</a>
             
-            <a href="#" class="mt-4 btn-navbar px-8 py-3 rounded-full text-lg font-bold shadow-glass-gold">
+            <a href="contact.html" class="mt-4 btn-navbar px-8 py-3 rounded-full text-lg font-bold shadow-glass-gold">
                 Book Appointment
             </a>
         </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-6 py-3 md:px-8 w-[90%] max-w-[1400px] bg-white/30 backdrop-blur-2xl border border-white/40 shadow-glass rounded-2xl transition-all duration-300 hover:bg-white/40">
-        <div class="flex items-center gap-4 shrink-0">
-            <div class="border-[1.5px] border-gold py-1 px-2 flex flex-col items-center text-center z-50 text-gold mix-blend-multiply">
-                <span class="text-base font-bold tracking-normal uppercase leading-none">Muzaffar Sultan</span>
-                <span class="text-[9px] font-bold tracking-wider uppercase leading-none mt-0.5">Financial Services</span>
-            </div>
-        </div>
+    <!-- Navigation -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-6 py-3 md:px-8 w-[90%] max-w-[1400px] bg-white/30 backdrop-blur-2xl border border-white/40 shadow-glass rounded-2xl transition-all duration-300 hover:bg-white/40">
+    <div class="flex items-center gap-4 shrink-0">
+        <a href="index.html" class="border-[1.5px] border-gold py-1 px-2 flex flex-col items-center text-center z-50 text-gold mix-blend-multiply cursor-pointer">
+            <span class="text-base font-bold tracking-normal uppercase leading-none">Muzaffar Sultan</span>
+            <span class="text-[9px] font-bold tracking-wider uppercase leading-none mt-0.5">Financial Services</span>
+        </a>
+    </div>
 
-        <div class="hidden xl:flex items-center gap-8 text-[14px] font-medium text-[#4a4a4a]">
-            <a href="#" class="hover:text-gold transition-colors">Home</a>
-            <a href="#" class="hover:text-gold transition-colors">About</a>
-            
-            <div class="relative group py-3">
-                <button class="flex items-center gap-1 hover:text-gold transition-colors cursor-pointer">
-                    Resources
-                    <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
-                </button>
-                <div class="dropdown-content absolute top-full mt-4 left-1/2 -translate-x-1/2 w-80 bg-white/60 backdrop-blur-xl shadow-glass rounded-xl p-2 border border-white/50">
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-white/50 hover:text-gold rounded-md transition-colors">Wealth Management and Succession planning</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-white/50 hover:text-gold rounded-md transition-colors">Financial Planning</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-white/50 hover:text-gold rounded-md transition-colors">Financial Consultancy</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-white/50 hover:text-gold rounded-md transition-colors">Insurance Planning</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-white/50 hover:text-gold rounded-md transition-colors">Debt Management</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-white/50 hover:text-gold rounded-md transition-colors">Mortgages</a>
-                </div>
-            </div>
-
-            <a href="#" class="hover:text-gold transition-colors">Blog</a>
-            <a href="#" class="hover:text-gold transition-colors">FAQ</a>
-
-            <div class="relative group py-3">
-                <button class="flex items-center gap-1 hover:text-gold transition-colors cursor-pointer">
-                    Locations
-                    <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
-                </button>
-                <div class="dropdown-content absolute top-full mt-4 left-1/2 -translate-x-1/2 w-64 bg-white/60 backdrop-blur-xl shadow-glass rounded-xl p-2 border border-white/50">
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-white/50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Calgary</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-white/50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Edmonton</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-white/50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Ottawa</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-white/50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Vancouver</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-white/50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Toronto</a>
-                </div>
-            </div>
-
-            <a href="#" class="hover:text-gold transition-colors">Contact</a>
-        </div>
-
-        <div class="flex items-center gap-4">
-            <a href="#" class="hidden sm:inline-block btn-navbar px-5 py-2 rounded-full text-[13px] font-bold shadow-sm whitespace-nowrap">
-                Book Appointment
+    <div class="hidden xl:flex items-center gap-8 text-[14px] font-medium text-[#4a4a4a]">
+        <a href="index.html" class="text-gold font-bold transition-colors">Home</a>
+        <a href="about.html" class="hover:text-gold transition-colors">About</a>
+        
+        <div class="relative group py-3">
+            <a href="wealth-management.html" class="flex items-center gap-1 hover:text-gold transition-colors cursor-pointer">
+                Resources
+                <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
             </a>
-
-            <button id="menu-toggle" class="xl:hidden p-2 text-gold hover:bg-gold/10 rounded-lg transition-colors">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
+            <div class="dropdown-content absolute top-full mt-0 left-0 w-64 bg-white/95 backdrop-blur-xl shadow-glass rounded-xl p-2 border border-white/50">
+                <a href="wealth-management.html#wealth" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Wealth Management</a>
+                <a href="wealth-management.html#planning" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Financial Planning</a>
+                <a href="wealth-management.html#consultancy" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Financial Consultancy</a>
+                <a href="wealth-management.html#insurance" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Insurance Planning</a>
+                <a href="wealth-management.html#debt" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Debt Management</a>
+                <a href="wealth-management.html#mortgages" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Mortgages</a>
+            </div>
         </div>
-    </nav>
+
+        <a href="blog.html" class="hover:text-gold transition-colors">Blog</a>
+        <a href="faq.html" class="hover:text-gold transition-colors">FAQ</a>
+
+        <div class="relative group py-3">
+            <a href="locations.html" class="flex items-center gap-1 hover:text-gold transition-colors cursor-pointer">
+                Locations
+                <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+            </a>
+            <div class="dropdown-content absolute top-full mt-0 left-0 w-56 bg-white/95 backdrop-blur-xl shadow-glass rounded-xl p-2 border border-white/50">
+                <a href="locations.html#calgary" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Calgary</a>
+                <a href="locations.html#edmonton" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Edmonton</a>
+                <a href="locations.html#ottawa" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Ottawa</a>
+                <a href="locations.html#vancouver" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Vancouver</a>
+                <a href="locations.html#toronto" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Toronto</a>
+            </div>
+        </div>
+
+        <a href="contact.html" class="hover:text-gold transition-colors">Contact</a>
+    </div>
+
+    <div class="flex items-center gap-4">
+        <a href="contact.html" class="hidden sm:inline-block btn-navbar px-5 py-2 rounded-full text-[13px] font-bold shadow-sm whitespace-nowrap">
+            Book Appointment
+        </a>
+
+        <button id="menu-toggle" class="xl:hidden p-2 text-gold hover:bg-gold/10 rounded-lg transition-colors">
+            <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+    </div>
+</nav>
 
     <!-- Hero Section -->
     <main class="relative w-full min-h-screen flex flex-col bg-white overflow-hidden z-30" id="hero-container">
@@ -434,9 +444,9 @@
                     <div class="w-full bg-white/50 rounded-full h-9 flex items-center px-4 text-[10px] text-gray-500 border border-white/40 italic">
                         Ask about wealth strategies...
                     </div>
-                    <div class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
+                    <a href="wealth-management.html" class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
                         <i class="fa-solid fa-arrow-up"></i>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -457,9 +467,9 @@
                     <div class="w-full bg-white/50 rounded-full h-9 flex items-center px-4 text-[10px] text-gray-500 border border-white/40 italic">
                         Inquire about coverage...
                     </div>
-                    <div class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
+                    <a href="wealth-management.html" class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
                         <i class="fa-solid fa-arrow-up"></i>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -480,9 +490,9 @@
                     <div class="w-full bg-white/50 rounded-full h-9 flex items-center px-4 text-[10px] text-gray-500 border border-white/40 italic">
                         Find your best rate...
                     </div>
-                    <div class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
+                    <a href="wealth-management.html" class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
                         <i class="fa-solid fa-arrow-up"></i>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -503,9 +513,9 @@
                     <div class="w-full bg-white/50 rounded-full h-9 flex items-center px-4 text-[10px] text-gray-500 border border-white/40 italic">
                         Book a consultation...
                     </div>
-                    <div class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
+                    <a href="wealth-management.html" class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
                         <i class="fa-solid fa-arrow-up"></i>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -526,9 +536,9 @@
                     <div class="w-full bg-white/50 rounded-full h-9 flex items-center px-4 text-[10px] text-gray-500 border border-white/40 italic">
                         Plan your future...
                     </div>
-                    <div class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
+                    <a href="wealth-management.html" class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
                         <i class="fa-solid fa-arrow-up"></i>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -549,9 +559,9 @@
                     <div class="w-full bg-white/50 rounded-full h-9 flex items-center px-4 text-[10px] text-gray-500 border border-white/40 italic">
                         Discuss debt solutions...
                     </div>
-                    <div class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
+                    <a href="wealth-management.html" class="absolute right-1 top-1 w-7 h-7 bg-gold rounded-full flex items-center justify-center text-white text-[10px] shadow-md cursor-pointer hover:scale-105 transition-transform">
                         <i class="fa-solid fa-arrow-up"></i>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -578,7 +588,7 @@
             <p class="text-[16px] md:text-[18px] leading-relaxed text-white md:text-gray-600 mb-8 max-w-2xl mx-auto font-normal drop-shadow-md md:drop-shadow-none">
                 Comprehensive wealth management and insurance solutions tailored to your unique life goals.
             </p>
-            <a href="#" class="btn-standard px-10 py-4 rounded-full text-[15px] font-bold shadow-glass-gold">
+            <a href="contact.html" class="btn-standard px-10 py-4 rounded-full text-[15px] font-bold shadow-glass-gold">
                 <span class="relative z-10">Get started with a free consultation</span>
             </a>
         </div>
@@ -604,7 +614,7 @@
                             Grow, protect, and preserve your wealth with personalized investment and portfolio strategies. Our wealth management services help business owners and families plan for retirement.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -621,7 +631,7 @@
                             Protect your income, assets, and loved ones with customized insurance planning. We provide tailored life, disability, critical illness, and business insurance strategies.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -638,7 +648,7 @@
                             Secure the right mortgage with expert guidance designed to match your financial goals. We help you compare rates, structure payments, and improve approval odds.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -655,7 +665,7 @@
                             Get expert financial consultancy tailored to your unique goals. We provide strategic guidance on wealth building, cash flow optimization, and business finances.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -672,7 +682,7 @@
                             Take control of your financial future with comprehensive financial planning. We help you organize your assets, reduce taxes, and prepare for retirement.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -689,7 +699,7 @@
                             Regain control of your finances with strategic debt management solutions. We help you reduce high-interest debt, improve cash flow, and restructure payments.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -707,7 +717,7 @@
                             Grow, protect, and preserve your wealth with personalized investment and portfolio strategies. Our wealth management services help business owners and families plan for retirement.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -724,7 +734,7 @@
                             Protect your income, assets, and loved ones with customized insurance planning. We provide tailored life, disability, critical illness, and business insurance strategies.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -741,7 +751,7 @@
                             Secure the right mortgage with expert guidance designed to match your financial goals. We help you compare rates, structure payments, and improve approval odds.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -758,7 +768,7 @@
                             Get expert financial consultancy tailored to your unique goals. We provide strategic guidance on wealth building, cash flow optimization, and business finances.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -775,7 +785,7 @@
                             Take control of your financial future with comprehensive financial planning. We help you organize your assets, reduce taxes, and prepare for retirement.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -792,7 +802,7 @@
                             Regain control of your finances with strategic debt management solutions. We help you reduce high-interest debt, improve cash flow, and restructure payments.
                         </p>
                     </div>
-                    <a href="#" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
+                    <a href="wealth-management.html" class="btn-standard w-full py-3 rounded-full text-sm font-bold text-center flex items-center justify-center gap-2">
                         Learn more <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -829,7 +839,7 @@
                     </div>
 
                     <div class="z-20 text-center w-full px-4">
-                        <a href="#" class="btn-standard inline-block px-8 py-4 rounded-full text-lg font-bold shadow-lg">
+                        <a href="blog.html" class="btn-standard inline-block px-8 py-4 rounded-full text-lg font-bold shadow-lg">
                             Read the guide now
                         </a>
                     </div>
@@ -1202,13 +1212,13 @@
                 <div>
                     <h3 class="text-xl font-bold mb-6 text-gold">Links</h3>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-100 hover:text-gold transition-colors">Home</a></li>
-                        <li><a href="#" class="text-gray-100 hover:text-gold transition-colors">About</a></li>
-                        <li><a href="#" class="text-gray-100 hover:text-gold transition-colors">Services</a></li>
-                        <li><a href="#" class="text-gray-100 hover:text-gold transition-colors">FAQ</a></li>
-                        <li><a href="#" class="text-gray-100 hover:text-gold transition-colors">Service Areas</a></li>
-                        <li><a href="#" class="text-gray-100 hover:text-gold transition-colors">Blog</a></li>
-                        <li><a href="#" class="text-gray-100 hover:text-gold transition-colors">Contact</a></li>
+                        <li><a href="index.html" class="text-gray-100 hover:text-gold transition-colors">Home</a></li>
+                        <li><a href="about.html" class="text-gray-100 hover:text-gold transition-colors">About</a></li>
+                        <li><a href="wealth-management.html" class="text-gray-100 hover:text-gold transition-colors">Services</a></li>
+                        <li><a href="faq.html" class="text-gray-100 hover:text-gold transition-colors">FAQ</a></li>
+                        <li><a href="locations.html" class="text-gray-100 hover:text-gold transition-colors">Locations</a></li>
+                        <li><a href="blog.html" class="text-gray-100 hover:text-gold transition-colors">Blog</a></li>
+                        <li><a href="contact.html" class="text-gray-100 hover:text-gold transition-colors">Contact</a></li>
                     </ul>
                 </div>
 
@@ -1223,10 +1233,10 @@
                         <li class="flex items-center gap-3">
                             <i class="fas fa-phone text-gold"></i>
                             <a href="tel:4033991960" class="text-gray-100 hover:text-gold transition-colors">(403) 399-1960</a>
-                        </li>
+                        </li>    
                         <li class="flex items-center gap-3">
                             <i class="fas fa-envelope text-gold"></i>
-                            <a href="/cdn-cgi/l/email-protection#7c1109061d1a1a1d0e520f0910081d123c191d091f101d150e190c1d0e0812190e0f521f1311" class="text-gray-100 hover:text-gold transition-colors text-sm break-all"><span class="__cf_email__" data-cfemail="2c4159564d4a4a4d5e025f5940584d426c494d594f404d455e495c4d5e5842495e5f024f4341">[email&#160;protected]</span></a>
+                            <a href="mailto:contact@muzaffarsultan.com" class="text-gray-100 hover:text-gold transition-colors text-sm">contact@muzaffarsultan.com</a>
                         </li>
                     </ul>
                 </div>

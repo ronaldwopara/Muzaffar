@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Muzaffar Sultan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#B8860B',
+                        'gold-hover': '#9A7209',
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+                        'glass-gold': '0 8px 32px 0 rgba(184, 134, 11, 0.15)',
+                        'card': '0 8px 32px 0 rgba(0, 0, 0, 0.1)',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            overflow-x: hidden;
+            background-color: #f9fafb;
+        }
+        
+        .hero-fade { background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.8) 80%, rgba(255,255,255,1) 100%); }
+        
+        /* Navigation Styles */
+        .group { display: inline-block; }
+        .dropdown-content {
+            opacity: 0;
+            visibility: hidden;
+            left: 50%;
+            top: calc(100% - 2px);
+            transform: translate(-50%, 10px);
+            transition: opacity 0.18s ease-in-out, transform 0.18s ease-in-out, visibility 0.18s;
+            z-index: 60;
+            pointer-events: none;
+            min-width: 10rem;
+        }
+        .group:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, 0);
+            pointer-events: auto;
+        }
+        .mobile-submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, opacity 0.3s ease-out; opacity: 0; }
+        .mobile-submenu.open { max-height: 500px; opacity: 1; }
+        
+        /* Glass Components */
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        .btn-navbar { background: #B8860B; color: white; border: 2px solid #B8860B; transition: transform 0.3s ease; }
+        .btn-navbar:hover { transform: scale(1.05); }
+
+        /* Service Tab Styles */
+        .service-tab {
+            transition: all 0.3s ease;
+        }
+        .service-tab:hover {
+            color: #B8860B; /* Gold text on hover */
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .service-tab.active {
+            background-color: #B8860B;
+            color: white;
+            border-color: #B8860B;
+            box-shadow: 0 4px 12px rgba(184, 134, 11, 0.2);
+        }
+        .service-tab.active:hover {
+            color: white; /* Keep white on hover if active */
+            background-color: #9A7209;
+        }
+        
+        /* Smooth fade for content switching */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer-text-shadow { text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); }
+        
+        /* Hide scrollbar for clean horizontal scroll on mobile */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Scroll Indicator Fade */
+        .scroll-mask {
+            mask-image: linear-gradient(to right, black 85%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        }
+
+        /* Animation Styles */
+        #wealth-hero-content, #wealth-main-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        #wealth-hero-content { transition-delay: 0.2s; }
+        #wealth-main-content { transition-delay: 0.5s; }
+        
+        .phase-in-active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-white/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex flex-col justify-start items-center pt-24 overflow-y-auto">
+        <button id="close-menu" class="absolute top-6 right-6 p-2 text-gold hover:rotate-90 transition-transform">
+            <i class="fa-solid fa-xmark text-3xl"></i>
+        </button>
+        
+        <div class="flex flex-col items-center gap-6 w-full pb-10">
+            <a href="index.html" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">Home</a>
+            <a href="about.html" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">About</a>
+            
+            <div class="w-full flex flex-col items-center">
+                <button class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors flex items-center gap-2" onclick="toggleMobileSubmenu('mobile-resources')">
+                    Resources <i class="fa-solid fa-chevron-down text-sm transition-transform" id="arrow-mobile-resources"></i>
+                </button>
+                <div id="mobile-resources" class="mobile-submenu flex flex-col items-center gap-3 mt-2 text-lg text-gray-600 bg-gray-50/50 w-full py-0">
+                    <button onclick="switchTab('wealth'); toggleMenu()" class="block py-2 hover:text-gold">Wealth Management</button>
+                    <button onclick="switchTab('planning'); toggleMenu()" class="block py-2 hover:text-gold">Financial Planning</button>
+                    <button onclick="switchTab('consultancy'); toggleMenu()" class="block py-2 hover:text-gold">Financial Consultancy</button>
+                    <button onclick="switchTab('insurance'); toggleMenu()" class="block py-2 hover:text-gold">Insurance Planning</button>
+                    <button onclick="switchTab('debt'); toggleMenu()" class="block py-2 hover:text-gold">Debt Management</button>
+                    <button onclick="switchTab('mortgages'); toggleMenu()" class="block py-2 hover:text-gold">Mortgages</button>
+                </div>
+            </div>
+
+            <div class="w-full flex flex-col items-center">
+                <button class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors flex items-center gap-2" onclick="toggleMobileSubmenu('mobile-locations')">
+                    Locations <i class="fa-solid fa-chevron-down text-sm transition-transform" id="arrow-mobile-locations"></i>
+                </button>
+                <div id="mobile-locations" class="mobile-submenu flex flex-col items-center gap-3 mt-2 text-lg text-gray-600 bg-gray-50/50 w-full py-0">
+                    <a href="locations.html#calgary" class="block py-2 hover:text-gold">Calgary</a>
+                    <a href="locations.html#edmonton" class="block py-2 hover:text-gold">Edmonton</a>
+                    <a href="locations.html#ottawa" class="block py-2 hover:text-gold">Ottawa</a>
+                    <a href="locations.html#vancouver" class="block py-2 hover:text-gold">Vancouver</a>
+                    <a href="locations.html#toronto" class="block py-2 hover:text-gold">Toronto</a>
+                </div>
+            </div>
+
+            <a href="blog.html" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">Blog</a>
+            <a href="faq.html" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">FAQ</a>
+            <a href="contact.html" class="text-2xl font-medium text-gray-800 hover:text-gold transition-colors">Contact</a>
+            
+            <a href="contact.html" class="mt-4 btn-navbar px-8 py-3 rounded-full text-lg font-bold shadow-glass-gold">
+                Book Appointment
+            </a>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-6 py-3 md:px-8 w-[90%] max-w-[1400px] bg-white/30 backdrop-blur-2xl border border-white/40 shadow-glass rounded-2xl transition-all duration-300 hover:bg-white/40">
+        <div class="flex items-center gap-4 shrink-0">
+            <a href="index.html" class="border-[1.5px] border-gold py-1 px-2 flex flex-col items-center text-center z-50 text-gold mix-blend-multiply cursor-pointer">
+                <span class="text-base font-bold tracking-normal uppercase leading-none">Muzaffar Sultan</span>
+                <span class="text-[9px] font-bold tracking-wider uppercase leading-none mt-0.5">Financial Services</span>
+            </a>
+        </div>
+
+        <div class="hidden xl:flex items-center gap-8 text-[14px] font-medium text-[#4a4a4a]">
+            <a href="index.html" class="hover:text-gold transition-colors">Home</a>
+            <a href="about.html" class="hover:text-gold transition-colors">About</a>
+            
+            <div class="relative group py-3">
+                <a href="wealth-management.html" class="flex items-center gap-1 text-gold font-bold transition-colors cursor-pointer">
+                    Resources
+                    <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+                </a>
+                <div class="dropdown-content absolute top-full mt-0 left-0 w-64 bg-white/95 backdrop-blur-xl shadow-glass rounded-xl p-2 border border-white/50">
+                    <button onclick="switchTab('wealth')" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Wealth Management</button>
+                    <button onclick="switchTab('planning')" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Financial Planning</button>
+                    <button onclick="switchTab('consultancy')" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Financial Consultancy</button>
+                    <button onclick="switchTab('insurance')" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Insurance Planning</button>
+                    <button onclick="switchTab('debt')" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Debt Management</button>
+                    <button onclick="switchTab('mortgages')" class="block w-full text-left px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md transition-colors">Mortgages</button>
+                </div>
+            </div>
+
+            <a href="blog.html" class="hover:text-gold transition-colors">Blog</a>
+            <a href="faq.html" class="hover:text-gold transition-colors">FAQ</a>
+
+            <div class="relative group py-3">
+                <a href="locations.html" class="flex items-center gap-1 hover:text-gold transition-colors cursor-pointer">
+                    Locations
+                    <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+                </a>
+                <div class="dropdown-content absolute top-full mt-0 left-0 w-56 bg-white/95 backdrop-blur-xl shadow-glass rounded-xl p-2 border border-white/50">
+                    <a href="locations.html#calgary" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Calgary</a>
+                    <a href="locations.html#edmonton" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Edmonton</a>
+                    <a href="locations.html#ottawa" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Ottawa</a>
+                    <a href="locations.html#vancouver" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Vancouver</a>
+                    <a href="locations.html#toronto" class="block px-4 py-2 text-sm text-gray-800 font-medium hover:bg-gray-50 hover:text-gold rounded-md uppercase tracking-wide transition-colors">Toronto</a>
+                </div>
+            </div>
+
+            <a href="contact.html" class="hover:text-gold transition-colors">Contact</a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <a href="contact.html" class="hidden sm:inline-block btn-navbar px-5 py-2 rounded-full text-[13px] font-bold shadow-sm whitespace-nowrap">
+                Book Appointment
+            </a>
+
+            <button id="menu-toggle" class="xl:hidden p-2 text-gold hover:bg-gold/10 rounded-lg transition-colors">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="relative w-full h-[50vh] min-h-[450px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <!-- Using the requested image name -->
+            <div class="bg-gray-200 w-full h-full">
+                <img src="bg-hero.jpg" class="w-full h-full object-cover" alt="Services" onerror="this.src='https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2670&auto=format&fit=crop'">
+            </div>
+            <div class="absolute inset-0 bg-white/50 backdrop-blur-[2px]"></div>
+            <div class="absolute inset-0 hero-fade"></div>
+        </div>
+        <div id="wealth-hero-content" class="relative z-20 text-center max-w-4xl px-4 mt-16">
+            <!-- Updated Color Scheme: Black Words, Gold Ampersand -->
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6 drop-shadow-sm">
+                Wealth <span class="text-gold">&</span> Legacy
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">Comprehensive financial solutions tailored to preserve your assets and secure your family's future.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div id="wealth-main-content" class="relative z-10 max-w-[1100px] mx-auto px-4 pb-20">
+        
+        <!-- Navigation Tabs (Static) -->
+        <div class="relative z-30 py-4 mb-8">
+            <!-- Fixed: Added max-w-full to allow shrinking on resize -->
+            <div class="glass-card w-full md:w-fit md:max-w-full rounded-2xl p-2 mx-auto shadow-glass-gold relative group/nav">
+                
+                <!-- Horizontal Scroll Indicator (Controlled by JS) -->
+                <div id="scroll-indicator" class="hidden absolute right-2 top-1/2 -translate-y-1/2 z-50 pointer-events-none text-gold animate-pulse-slow">
+                    <i class="fa-solid fa-chevron-right opacity-70"></i>
+                </div>
+                <!-- Gradient Mask on right to imply scrolling (Controlled by JS) -->
+                <div id="scroll-mask" class="hidden absolute right-2 top-2 bottom-2 w-8 bg-gradient-to-l from-white/90 to-transparent z-40 pointer-events-none"></div>
+
+                <nav class="flex flex-nowrap overflow-x-auto no-scrollbar gap-2 px-1 relative z-30" id="service-tabs">
+                    <button onclick="switchTab('wealth')" class="service-tab active px-5 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap border border-transparent shrink-0">Wealth Management</button>
+                    <button onclick="switchTab('planning')" class="service-tab px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 transition-all whitespace-nowrap border border-transparent shrink-0">Financial Planning</button>
+                    <button onclick="switchTab('consultancy')" class="service-tab px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 transition-all whitespace-nowrap border border-transparent shrink-0">Financial Consultancy</button>
+                    <button onclick="switchTab('insurance')" class="service-tab px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 transition-all whitespace-nowrap border border-transparent shrink-0">Insurance Planning</button>
+                    <button onclick="switchTab('debt')" class="service-tab px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 transition-all whitespace-nowrap border border-transparent shrink-0">Debt Management</button>
+                    <button onclick="switchTab('mortgages')" class="service-tab px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 transition-all whitespace-nowrap border border-transparent shrink-0">Mortgages</button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <article class="w-full min-h-[600px]">
+            
+            <!-- 1. Wealth Management Content -->
+            <div id="wealth-content" class="tab-content active">
+                <div class="glass-card p-6 md:p-12 rounded-3xl bg-white/80">
+                    <div class="max-w-3xl mx-auto">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Preserving Wealth Across Generations</h2>
+                        <p class="text-gray-600 mb-10 leading-relaxed text-center text-lg">
+                            Our approach to wealth management goes beyond simple investment. We build personalized succession strategies to ensure your hard-earned assets are efficiently managed and seamlessly transitioned to the next generation.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-12">
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-chart-pie text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Asset Growth</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Tailored investment strategies focused on consistent growth while respecting your personal risk tolerance.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-users text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Succession Planning</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Structuring your business and estate to ensure a smooth transition to your heirs without unnecessary burden.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-shield-halved text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Risk Mitigation</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Proactive measures to safeguard your wealth against market volatility and unforeseen life events.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-landmark text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Legacy Creation</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Crafting a lasting financial impact that aligns with your family values and philanthropic goals.</p>
+                            </div>
+                        </div>
+
+                        <div class="text-center bg-gold/5 border border-gold/20 p-8 rounded-2xl">
+                            <h4 class="font-bold text-xl text-gray-900 mb-3">Ready to discuss your legacy?</h4>
+                            <p class="text-gray-600 mb-6">Let's start a conversation about securing your financial future.</p>
+                            <a href="contact.html" class="inline-block btn-navbar px-8 py-3 rounded-full text-sm font-bold shadow-lg">Schedule a Consultation</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Financial Planning Content -->
+            <div id="planning-content" class="tab-content">
+                <div class="glass-card p-6 md:p-12 rounded-3xl bg-white/80">
+                    <div class="max-w-3xl mx-auto">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Holistic Financial Planning</h2>
+                        <p class="text-gray-600 mb-10 leading-relaxed text-center text-lg">
+                            We specialize in serving business owners and families aged 40+ who value clarity. Our plans are not just documents; they are roadmaps to your financial independence.
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-6 mb-12">
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-compass text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Tailored Strategy</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">We understand the complexities of your income streams and design solutions that fit your specific reality.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-umbrella-beach text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Retirement Security</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Building a robust plan to ensure your lifestyle is maintained or enhanced during your retirement years.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-file-invoice-dollar text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Tax Efficiency</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Structuring your finances to minimize liabilities and maximize what you keep for yourself and your family.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-chart-line text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Investment Advisory</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Expert guidance to navigate the market, offering strategic planning to optimize your portfolio.</p>
+                            </div>
+                        </div>
+
+                        <div class="text-center bg-gold/5 border border-gold/20 p-8 rounded-2xl">
+                            <h4 class="font-bold text-xl text-gray-900 mb-3">Ready to plan your future?</h4>
+                            <p class="text-gray-600 mb-6">Start building your roadmap to financial independence today.</p>
+                            <a href="contact.html" class="inline-block btn-navbar px-8 py-3 rounded-full text-sm font-bold shadow-lg">Start Planning</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Financial Consultancy Content (RESTORED) -->
+            <div id="consultancy-content" class="tab-content">
+                <div class="glass-card p-6 md:p-12 rounded-3xl bg-white/80">
+                     <div class="max-w-3xl mx-auto">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Expert Financial Consultancy</h2>
+                        <p class="text-gray-600 mb-10 leading-relaxed text-center text-lg">
+                            Serving Alberta's affluent community with bespoke advisory solutions. We act as your financial architect, coordinating all aspects of your wealth protection and growth.
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-6 mb-12">
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-chess text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Bespoke Solutions</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">No off-the-shelf products. Every strategy is built from the ground up for you and your family.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-user-lock text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Wealth Protection</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Defensive strategies to insulate your assets from legal disputes and market threats.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-hand-holding-heart text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Legacy Planning</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Ensuring your wealth serves the people and causes you care about most, now and in the future.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-arrow-trend-up text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Growth Consultancy</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Identifying new opportunities for capital appreciation in a constantly changing global market.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center bg-gold/5 border border-gold/20 p-8 rounded-2xl">
+                            <h4 class="font-bold text-xl text-gray-900 mb-3">Looking for expert advice?</h4>
+                            <p class="text-gray-600 mb-6">Let's build a strategy that fits your unique needs.</p>
+                            <a href="contact.html" class="inline-block btn-navbar px-8 py-3 rounded-full text-sm font-bold shadow-lg">Request an Advisory Session</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Insurance Planning Content -->
+            <div id="insurance-content" class="tab-content">
+                <div class="glass-card p-6 md:p-12 rounded-3xl bg-white/80">
+                    <div class="max-w-3xl mx-auto">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Insurance Solutions for Families & Business</h2>
+                        <p class="text-gray-600 mb-10 leading-relaxed text-center text-lg">
+                            Insurance is the foundation of a secure financial plan. We provide comprehensive coverage analysis to protect against life's uncertainties.
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-6 mb-12">
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-user-shield text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Personal Coverage</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Life, disability, and critical illness insurance designed to replace income and cover debts.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-building-shield text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Corporate Protection</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Key person insurance and buy-sell agreement funding to ensure your business survives and thrives.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-heart-pulse text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Risk Management</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Identifying potential gaps in your current coverage and providing cost-effective solutions.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-scale-balanced text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Estate Preservation</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Using insurance strategies to cover estate taxes and equalize inheritance among beneficiaries.</p>
+                            </div>
+                        </div>
+
+                        <div class="text-center bg-gold/5 border border-gold/20 p-8 rounded-2xl">
+                            <h4 class="font-bold text-xl text-gray-900 mb-3">Are you fully protected?</h4>
+                            <p class="text-gray-600 mb-6">Let's review your coverage to ensure peace of mind.</p>
+                            <a href="contact.html" class="inline-block btn-navbar px-8 py-3 rounded-full text-sm font-bold shadow-lg">Review Coverage</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Debt Management Content -->
+            <div id="debt-content" class="tab-content">
+                <div class="glass-card p-6 md:p-12 rounded-3xl bg-white/80">
+                     <div class="max-w-3xl mx-auto">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Strategic Debt Management</h2>
+                        <p class="text-gray-600 mb-10 leading-relaxed text-center text-lg">
+                            Debt shouldn't hold you back. We create structured repayment and restructuring plans to help you regain control and reduce interest costs.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-12">
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-scissors text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Reduction Strategy</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Prioritizing high-interest liabilities to maximize your monthly cash flow.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-handshake-angle text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Restructuring</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Consolidating obligations to simplify your financial life and lower monthly costs.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-money-bill-trend-up text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Cash Flow Optimization</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Analyzing your income and expenses to free up capital for debt repayment.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-comments-dollar text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Negotiation Support</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Assisting in discussions with creditors to potentially secure better terms.</p>
+                            </div>
+                        </div>
+
+                        <div class="text-center bg-gold/5 border border-gold/20 p-8 rounded-2xl">
+                            <h4 class="font-bold text-xl text-gray-900 mb-3">Ready to be debt-free?</h4>
+                            <p class="text-gray-600 mb-6">Take the first step towards financial freedom today.</p>
+                            <a href="contact.html" class="inline-block btn-navbar px-8 py-3 rounded-full text-sm font-bold shadow-lg">Get Help Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Mortgages Content -->
+            <div id="mortgages-content" class="tab-content">
+                <div class="glass-card p-6 md:p-12 rounded-3xl bg-white/80">
+                     <div class="max-w-3xl mx-auto">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Smart Mortgage Solutions</h2>
+                        <p class="text-gray-600 mb-10 leading-relaxed text-center text-lg">
+                            Whether you are buying a home or an investment property, the right mortgage strategy can save you thousands. We navigate the lenders for you.
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-6 mb-12">
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-house-circle-check text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Pre-Approval</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Shop with confidence knowing exactly what you can afford and securing your rate.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-percent text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Refinancing</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Access equity for investments or lower your monthly payments with better terms.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-building-columns text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Investment Properties</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Specialized financing solutions for rental properties to maximize your ROI.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <i class="fa-solid fa-file-signature text-gold text-2xl mb-4"></i>
+                                <h3 class="font-bold text-lg mb-2 text-gray-900">Renewals</h3>
+                                <p class="text-sm text-gray-600 leading-relaxed">Don't just sign the bank's letter. We negotiate to ensure you get the best market rate.</p>
+                            </div>
+                        </div>
+
+                        <div class="text-center bg-gold/5 border border-gold/20 p-8 rounded-2xl">
+                            <h4 class="font-bold text-xl text-gray-900 mb-3">Looking for the best rate?</h4>
+                            <p class="text-gray-600 mb-6">We work for you, not the banks. Let's find your solution.</p>
+                            <a href="contact.html" class="inline-block btn-navbar px-8 py-3 rounded-full text-sm font-bold shadow-lg">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+    </div>
+
+    <!-- Newsletter Section (Updated) -->
+    <section class="relative py-16 md:py-24 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+             <!-- Using the requested image name -->
+            <img src="news-letter.png" alt="Newsletter" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&auto=format&fit=crop'">
+            <div class="absolute inset-0 bg-white/25"></div>
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-gray-900">
+                    Subscribe to our newsletter
+                </h2>
+                <p class="text-lg text-gray-700 mb-6 drop-shadow-sm">
+                    Stay updated with the latest financial insights, market trends, and exclusive offers delivered straight to your inbox.
+                </p>
+                <form class="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
+                    <input type="email" placeholder="Enter your email address" class="flex-grow px-6 py-3 rounded-full border border-gray-300 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-white/90" required>
+                    <button type="submit" class="btn-standard px-8 py-3 rounded-full text-lg font-bold shadow-lg whitespace-nowrap bg-white text-gold border-2 border-gold hover:bg-gold hover:text-white transition-colors">Subscribe Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+     <!-- Footer Section -->
+    <footer class="relative text-white overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img 
+                src="footer.png" 
+                alt="Footer background" 
+                class="w-full h-full object-cover"
+                onerror="this.style.display='none'"
+            >
+        </div>
+
+        <!-- Dark overlay to improve text contrast -->
+        <div class="absolute inset-0 z-5 bg-black/50 pointer-events-none" aria-hidden="true"></div>
+
+        <div class="container mx-auto px-6 py-16 relative z-10 footer-text-shadow">
+            <!-- Three Column Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                
+                <!-- Left Column: Company Identity -->
+                <div class="space-y-6">
+                    <!-- Logo - Larger Version -->
+                    <div class="border-2 border-gold py-2 px-4 inline-flex flex-col items-center text-center">
+                        <span class="text-2xl font-bold tracking-normal uppercase leading-none text-gold">Muzaffar Sultan</span>
+                        <span class="text-xs font-bold tracking-wider uppercase leading-none mt-1 text-gold">Financial Services</span>
+                    </div>
+                    
+                    <!-- Biography -->
+                    <p class="text-sm text-gray-100 leading-relaxed">
+                        Muzaffar Sultan began his career in the financial industry with a clear mission to help business owners and families across Canada tackle unique financial challenges. With over a decade of experience, his work is driven by the belief that financial planning should be personalized and accessible, following the best principles of project management in his approach to planning and advising.
+                    </p>
+                    
+                    <!-- Professional Titles -->
+                    <div class="text-sm text-gray-100 space-y-2">
+                        <p>Senior Partner at <a href="https://eauclairepartners.com/muzaffarsultan/" target="_blank" class="text-gold hover:underline">Eau Claire Partners Inc.</a></p>
+                        <p>Mortgage Advisor at <a href="https://www.mortgageedge.ca/index.php/agents/muzaffar-sultan" target="_blank" class="text-gold hover:underline">Mortgage Edge</a></p>
+                    </div>
+                    
+                    <!-- Licensing -->
+                    <div class="text-xs text-gray-300">
+                        <p>Muzaffar Sultan, Mortgage Agent Level 1</p>
+                        <p>Mortgage Edge, Licence# M24002600</p>
+                    </div>
+                    
+                    <!-- Social Media -->
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gold hover:text-white text-2xl transition-colors">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gold hover:text-white text-2xl transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gold hover:text-white text-2xl transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Middle Column: Navigation Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-gold">Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-100 hover:text-gold transition-colors">Home</a></li>
+                        <li><a href="about.html" class="text-gray-100 hover:text-gold transition-colors">About</a></li>
+                        <li><a href="wealth-management.html" class="text-gray-100 hover:text-gold transition-colors">Services</a></li>
+                        <li><a href="faq.html" class="text-gray-100 hover:text-gold transition-colors">FAQ</a></li>
+                        <li><a href="locations.html" class="text-gray-100 hover:text-gold transition-colors">Locations</a></li>
+                        <li><a href="blog.html" class="text-gray-100 hover:text-gold transition-colors">Blog</a></li>
+                        <li><a href="contact.html" class="text-gray-100 hover:text-gold transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Right Column: Contact Information -->
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-gold">Contact Us</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-gold mt-1"></i>
+                            <span class="text-gray-100 text-sm">242 Martinvalley Crescent NE, Calgary, AB T3J 4L5, Canada</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone text-gold"></i>
+                            <a href="tel:4033991960" class="text-gray-100 hover:text-gold transition-colors">(403) 399-1960</a>
+                        </li>    
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-gold"></i>
+                            <a href="mailto:contact@muzaffarsultan.com" class="text-gray-100 hover:text-gold transition-colors text-sm">contact@muzaffarsultan.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-300">
+                    Copyright © 2025 Muzaffar Sultan. Powered By <a href="https://ronaldwopara.github.io/empower-agency/" target="_blank" class="text-gold hover:underline">Empower New Ideas</a>
+                </p>
+                <a href="/privacy-policy" class="text-sm text-gray-300 hover:text-gold transition-colors">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+    <script>
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all content
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Deactivate all tabs
+            const tabs = document.querySelectorAll('.service-tab');
+            tabs.forEach(tab => tab.classList.remove('active', 'bg-[#B8860B]', 'text-white'));
+            
+            // Add default styling back to inactive tabs
+            tabs.forEach(tab => tab.classList.add('text-gray-600'));
+
+            // Show selected content
+            const selectedContent = document.getElementById(tabId + '-content');
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+            }
+
+            // Activate selected tab (button)
+            const activeTabs = document.querySelectorAll(`button[onclick*="'${tabId}'"]`);
+            activeTabs.forEach(tab => {
+                if(tab.classList.contains('service-tab')) {
+                    tab.classList.add('active');
+                    tab.classList.remove('text-gray-600');
+                }
+            });
+            
+            // Scroll to content if needed (for small screens)
+            const navContainer = document.getElementById('service-tabs');
+            if(window.innerWidth < 1024 && navContainer) {
+                 navContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Standard Menu Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const body = document.body;
+
+        function toggleMenu() {
+            const isHidden = mobileMenu.classList.contains('translate-x-full');
+            if (isHidden) {
+                mobileMenu.classList.remove('translate-x-full');
+                body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                body.style.overflow = '';
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        closeMenu.addEventListener('click', toggleMenu);
+
+        function toggleMobileSubmenu(submenuId) {
+            const submenu = document.getElementById(submenuId);
+            const arrow = document.getElementById('arrow-' + submenuId);
+            if (submenu) {
+                submenu.classList.toggle('open');
+                if (arrow) {
+                    arrow.classList.toggle('rotate-180');
+                }
+            }
+        }
+        
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                switchTab(hash);
+            }
+            checkScroll(); // Check scroll indicator on load
+
+            // Page Load Animation
+            const heroContent = document.getElementById('wealth-hero-content');
+            const mainContent = document.getElementById('wealth-main-content');
+            
+            setTimeout(() => {
+                if (heroContent) heroContent.classList.add('phase-in-active');
+                if (mainContent) mainContent.classList.add('phase-in-active');
+            }, 300);
+        });
+
+        // Scroll Indicator Logic (Smart Check)
+        function checkScroll() {
+            const nav = document.getElementById('service-tabs');
+            const indicator = document.getElementById('scroll-indicator');
+            const mask = document.getElementById('scroll-mask');
+            
+            if (nav && indicator && mask) {
+                // If the scrollable width is greater than the visible width, show indicators
+                if (nav.scrollWidth > nav.clientWidth) {
+                    indicator.classList.remove('hidden');
+                    mask.classList.remove('hidden');
+                } else {
+                    indicator.classList.add('hidden');
+                    mask.classList.add('hidden');
+                }
+            }
+        }
+        
+        // Listen for resize events to re-check
+        window.addEventListener('resize', checkScroll);
+    </script>
+</body>
+</html>
